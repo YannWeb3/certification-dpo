@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certification DPO — comparatif</title>
+<script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("dpo-kit-theme")||"dark")}catch(e){}</script>
+<style>
+  :root{
+    --bg:#0b1220; --bg2:#0f1828; --card:#131d2e; --card2:#18243a;
+    --text:#e9eff8; --muted:#9db0c6; --line:#24344a;
+    --accent:#3fb88f; --accent-soft:rgba(63,184,143,.14); --accent2:#7dd3fc;
+    --ok:#34d399; --ko:#f87171; --warn:#fbbf24; --warn-soft:rgba(251,191,36,.12);
+    --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.25);
+  }
+  html[data-theme="light"]{
+    --bg:#f5f8fc; --bg2:#ffffff; --card:#ffffff; --card2:#f0f5fb;
+    --text:#0f2a47; --muted:#5b6b80; --line:#dbe4ef;
+    --accent:#237a5c; --accent-soft:rgba(35,122,92,.10); --accent2:#0369a1;
+    --ok:#047857; --ko:#b91c1c; --warn:#a16207; --warn-soft:rgba(161,98,7,.08);
+    --shadow:0 10px 30px rgba(15,42,71,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+  .wrap{max-width:960px;margin:0 auto;padding:28px 16px 60px}
+  header{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+  h1{font-size:1.7rem;margin:0 0 4px}
+  h2{font-size:1.15rem;margin:34px 0 12px}
+  .sub{color:var(--muted);margin:0}
+  button{background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer;font:inherit}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);margin:14px 0}
+  .alert{border-left:5px solid var(--warn);background:var(--warn-soft)}
+  .reco{border:2px solid var(--accent);background:var(--accent-soft)}
+  .tag{display:inline-block;font-size:.78rem;font-weight:600;padding:2px 10px;border-radius:999px;background:var(--card2);color:var(--muted);border:1px solid var(--line)}
+  .tag.ok{color:var(--ok)} .tag.ko{color:var(--ko)} .tag.warn{color:var(--warn)}
+  .price{font-size:1.6rem;font-weight:700;color:var(--accent)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+  .grid .card{margin:0}
+  .opt h3{margin:0 0 6px;font-size:1.02rem}
+  .opt .p{font-weight:700;margin:4px 0 8px}
+  ul{padding-left:20px;margin:8px 0} li{margin:4px 0}
+  .muted{color:var(--muted)} .small{font-size:.86rem}
+  a{color:var(--accent2)}
+  blockquote{margin:10px 0;padding:8px 14px;border-left:3px solid var(--line);color:var(--muted);font-style:italic}
+  ol.steps li{margin:8px 0}
+  .bodies{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+  .bodies div{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.9rem}
+  .bodies b{display:block}
+  footer{margin-top:40px;color:var(--muted);font-size:.85rem}
+  @media print{button{display:none}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Certification DPO : quel certificateur ?</h1>
+    <p class="sub">Comparatif du lundi 2 novembre 2026, complété le 9 novembre · chaque chiffre vérifié sur la page d'origine</p>
+  </div>
+  <button id="themeBtn" type="button">Thème clair</button>
+</header>
+
+<div class="card alert">
+  <h2 style="margin-top:0">⚠️ D'abord : il te faut 35 h de formation</h2>
+  <p>Pour passer l'examen, la CNIL demande l'une de ces deux conditions :</p>
+  <ul>
+    <li><b>2 ans d'expérience</b> sur des missions de protection des données ;</li>
+    <li><b>ou 2 ans d'expérience</b> (n'importe quel métier) <b>+ 35 h de formation</b>, données par un organisme de formation.</li>
+  </ul>
+  <blockquote>« une formation d'au moins 35 heures […] reçue par un organisme de formation » — <a href="https://www.cnil.fr/fr/la-certification-des-competences-du-delegue-la-protection-des-donnees">CNIL</a></blockquote>
+  <p>Tu fais du RGPD depuis février 2026 : c'est donc la 2<sup>e</sup> condition. <b>Ton kit sert à réviser, mais il ne remplace pas les 35 h.</b> Le 01/11, on avait noté « examen seul avec le kit » : ce n'est pas possible, sauf si tu as 2 ans d'expérience en protection des données que je ne connais pas.</p>
+</div>
+
+<h2>✅ Ma recommandation</h2>
+<div class="card reco">
+  <span class="tag ok">Le moins cher des parcours complets trouvés</span>
+  <h3 style="margin:10px 0 2px;font-size:1.2rem">LégiSchool — pack « Objectif DPO + Certification »</h3>
+  <div class="price">1 599 € TTC</div>
+  <ul>
+    <li><b>35 h de formation 100 % en ligne</b>, à ton rythme, accès 120 jours. Organisme certifié Qualiopi.</li>
+    <li><b>Premier passage de l'examen inclus</b>, chez <b>Apave Certification</b> (agréé CNIL), <b>en présentiel ou à distance</b>. Le « ticket » est valable 120 jours après l'activation.</li>
+    <li>Formateur : avocat, DPO certifié. Taux de réussite annoncé par LégiSchool : 90 %.</li>
+    <li>Financement cité par LégiSchool : ton OPCO (via ton employeur) ou France Travail. Le CPF n'est pas mentionné.</li>
+  </ul>
+  <p class="small muted">Examen seul chez Apave : <b>600 € HT</b>, en présentiel ou à distance ; repassage 300 € HT (vérifié sur la page Apave le 04/11).</p>
+  <p class="small"><b>Si ton employeur impose Orsys</b> : la bonne référence est <b>OF2</b> (CNIL), pas OFP (PECB). OF2 est valable si l'examen est inclus et le certificat CNIL confirmé ; sinon LégiSchool reste devant.</p>
+  <p class="small muted">Formation seule : 999 € TTC (l'examen est alors à réserver toi-même). Source : <a href="https://www.legischool.com/formation-objectif-dpo-35-heures-certification-cnil-rgpd">legischool.com</a>, lue le 02/11.</p>
+</div>
+
+<div class="card">
+  <h3 style="margin-top:0">Avant de payer : 3 questions à poser à Apave Certification</h3>
+  <ol class="steps">
+    <li><b>Quelles sont les prochaines dates d'examen à distance ?</b> Apave propose l'épreuve en présentiel ou à distance ; confirmer que le ticket LégiSchool couvre bien la session à distance.</li>
+    <li><b>Un aménagement de l'épreuve est-il possible</b>, par exemple du temps en plus ? LégiSchool écrit que les modalités de l'examen n'en prévoient pas : c'est à demander directement à Apave.</li>
+    <li><b>Dans quel délai</b> arrivent les résultats et le certificat ?</li>
+  </ol>
+  <p class="small muted">Le paiement, c'est toi qui le fais. Je peux préparer le mail à Apave (brouillon, tu l'envoies).</p>
+</div>
+
+<div class="card">
+  <h3 style="margin-top:0">📅 Le calendrier, honnêtement</h3>
+  <p>35 h de formation avec tes <b>4 blocs DPO par semaine (8 h)</b>, cela fait <b>4 à 5 semaines</b>. Si tu commences cette semaine, la formation se termine vers le 7 décembre. L'examen se passe ensuite, selon les dates d'Apave : <b>mi-décembre au plus tôt</b>.</p>
+  <p>L'objectif « fin novembre » ne tient que si tu mets plus de blocs sur le DPO. C'est ton choix : je ne change pas le cap sans toi.</p>
+</div>
+
+<h2>Toutes les options trouvées</h2>
+<div class="grid">
+  <div class="card opt">
+    <span class="tag">PECB · examen seul</span>
+    <h3>PECB, en direct</h3>
+    <div class="p">1 000 $ US + 500 $ US</div>
+    <ul class="small"><li>Examen + frais de demande de certification, <b>sans formation</b> : les 35 h restent à trouver ailleurs.</li><li>3 h, 100 questions ; en ligne ou sur papier.</li><li>Repassage : 15 jours d'attente.</li></ul>
+    <p class="small muted">Source : <a href="https://pecb.com/pdf/candidate-handbooks/pecb-candidate-handbook-cdpo-cnil.pdf">guide du candidat PECB</a></p>
+  </div>
+  <div class="card opt">
+    <span class="tag">PECB · formation + examen</span>
+    <h3>Global Knowledge</h3>
+    <div class="p">3 600 € HT</div>
+    <ul class="small"><li>5 jours en classe à distance.</li><li>Examen <b>en centre de test</b> (« pas disponible à ce jour au format électronique »).</li><li>Repassage gratuit sous 12 mois. Dates sur demande.</li></ul>
+    <p class="small muted">Source : <a href="https://www.globalknowledge.com/fr-fr/Formation/Security/Data_Privacy/CDPO">globalknowledge.com</a></p>
+  </div>
+  <div class="card opt">
+    <span class="tag warn">Vérifié le 04/11</span>
+    <h3>Orsys — « DPO, certification RGPD-CDPO PECB »</h3>
+    <div class="p">3 660 € HT</div>
+    <ul class="small">
+      <li>5 jours, <b>35 h</b>, présentiel ou classe à distance ; sessions 14-18/12/2026, 18-22/01/2027, etc.</li>
+      <li><b>Attention :</b> l'examen décrit est celui de PECB « Certified DPO » — <b>12 questions ouvertes, 3 h, à livre ouvert, en distanciel</b> — et non l'examen CNIL (QCM de 100 questions, sans support, 75 % + 50 % par domaine).</li>
+      <li>Les 35 h sont bien couvertes. Demander par écrit si l'examen <b>CNIL</b> est inclus, ou si c'est l'examen PECB distinct. Prix de l'examen à confirmer.</li>
+    </ul>
+    <p class="small muted">Sources : <a href="https://www.orsys.fr/formation-data-protection-officer-certification.html">page Orsys</a> et <a href="https://pecb.com/fr/education-and-certification-for-individuals/gdpr/certification-of-DPO-skills">page CNIL de PECB</a>, lues le 04/11/2026.</p>
+  </div>
+  <div class="card opt">
+    <span class="tag ok">La bonne référence CNIL chez Orsys</span>
+    <h3>Orsys OF2 — « CDPO-CNIL PECB »</h3>
+    <div class="p">3 860 € HT (page) / 4 040 € HT (PDF)</div>
+    <ul class="small">
+      <li>5 j / 35 h, classe à distance ou Paris La Défense.</li>
+      <li>Prépare à l'examen CNIL : <b>100 QCM, 3 h, livre fermé</b>, 75 % au total + 50 % par domaine.</li>
+      <li>Prochaine session : <b>1-5 février 2027</b> (la session du 2 novembre 2026 est passée).</li>
+      <li>Programme publié : fondamentaux, RGPD, DPO, risques/sécurité, incidents, AIPD. Moins explicite sur les <b>droits</b>, les <b>DPA</b>, le <b>registre</b>, le <b>privacy by design</b> et les <b>audits</b> : à compléter avec le kit.</li>
+      <li>Prix différent entre la page (3 860 € HT) et le PDF (4 040 € HT) : demander un devis. <b>Examen inclus ?</b> le PDF ne le dit pas.</li>
+    </ul>
+    <p class="small muted">Sources : <a href="https://www.orsys.fr/formation/OF2">page Orsys OF2</a> et <a href="https://www.orsys.fr/ContentV11/doc/pdf/pdc/fra_fr_OF2.pdf">PDF du programme</a>, lus le 05/11/2026.</p>
+  </div>
+  <div class="card opt">
+    <span class="tag">Bureau Veritas</span>
+    <h3>Bureau Veritas Formation</h3>
+    <div class="p">Prix non publié</div>
+    <ul class="small"><li>5 jours, 35 h ; classe virtuelle possible.</li><li>Examen : QCM « surveillé en salle ».</li></ul>
+    <p class="small muted">Source : <a href="https://formation-pr.bureauveritas.fr/files/pdf_programmes/FP_cdpof-10.pdf">programme (12/2025)</a></p>
+  </div>
+  <div class="card opt">
+    <span class="tag ko">Trop tard</span>
+    <h3>Lefebvre Dalloz</h3>
+    <div class="p">4 298 € HT</div>
+    <ul class="small"><li>Parcours de 5 jours (35 h), à distance ou à Paris. Le passage de l'examen CNIL n'est pas clairement inclus.</li><li>Prochaines sessions : à partir du 10 mars 2027.</li></ul>
+    <p class="small muted">Source : <a href="https://formation.lefebvre-dalloz.fr/sites/default/files/pdf_training/2026/600579_prog.pdf">programme 2026</a></p>
+  </div>
+  <div class="card opt">
+    <span class="tag">AFNOR</span>
+    <h3>AFNOR Certification</h3>
+    <div class="p">Prix non trouvé</div>
+    <ul class="small"><li>Épreuve de deux heures, d'après un article d'AFNOR (mis à jour le 15/09/2026).</li><li>Tarif et dates : à demander.</li></ul>
+    <p class="small muted">Source : <a href="https://www.afnor.org/en/news/dpo-5-certification-tips/">afnor.org</a></p>
+  </div>
+  <div class="card opt">
+    <span class="tag warn">Nouveau</span>
+    <h3>Lexing Technologies</h3>
+    <div class="p">Prix non publié</div>
+    <ul class="small"><li>Agréé depuis le 08/01/2026 ; sessions pilotes annoncées en mars 2026.</li><li>Contact : lexing-certification@lexing-technologies.com</li></ul>
+    <p class="small muted">Source : lettre Lexing de mars 2026</p>
+  </div>
+</div>
+
+<h2>Les 5 organismes agréés par la CNIL</h2>
+<div class="bodies">
+  <div><b>AFNOR Certification</b>n° 2024-058 · jusqu'au 18/07/2029</div>
+  <div><b>Apave Certification</b>n° 2024-079 · jusqu'au 14/11/2029</div>
+  <div><b>Bureau Veritas</b>n° 2025-001 · jusqu'au 09/01/2030</div>
+  <div><b>PECB</b>n° 2025-116 · jusqu'au 04/12/2030</div>
+  <div><b>Lexing Technologies</b>n° 2026-001 · jusqu'au 08/01/2031</div>
+</div>
+<p class="small muted">Source : <a href="https://www.cnil.fr/fr/organismes-agrees-certification">liste officielle de la CNIL</a>, lue le 02/11/2026.</p>
+
+<h2>Ce qui reste flou</h2>
+<ul>
+  <li><b>Durée de l'épreuve</b> : 2 h selon AFNOR, 3 h selon PECB. Elle dépend du certificateur.</li>
+  <li><b>Réponses justes</b> : « une ou plusieurs » selon la CNIL, « une seule » selon PECB. Là aussi, cela dépend du certificateur.</li>
+  <li><b>CPF</b> : aucune preuve trouvée pour ces offres.</li>
+  <li><b>Orsys OFP</b> : la page décrit un examen PECB de <b>12 questions ouvertes</b>, pas le QCM CNIL. <b>Orsys OF2</b> : la bonne référence CNIL (100 QCM), mais <b>3 860 € HT sur la page et 4 040 € HT sur le PDF</b>, avec un examen peut-être non inclus. Demander le devis et le libellé exact du certificat.</li>
+</ul>
+
+<footer>
+  <p>Méthode : les pages et PDF ont été lus par <code>deepseek-v4.1-flash:1017</code> (outil <code>deleguer.py</code>), puis chaque prix, durée et condition a été contrôlé par Claude sur le texte d'origine. Écartés : SGS (document de 2020, plus agréé), les résumés de recherche non vérifiés.</p>
+</footer>
+</div>
+<script>
+const btn=document.getElementById("themeBtn");
+function apply(t){document.documentElement.setAttribute("data-theme",t);btn.textContent=t==="dark"?"Thème clair":"Thème sombre";try{localStorage.setItem("dpo-kit-theme",t)}catch(e){}}
+apply(document.documentElement.getAttribute("data-theme")||"dark");
+btn.addEventListener("click",()=>apply(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark"));
+</script>
+</body>
+</html>

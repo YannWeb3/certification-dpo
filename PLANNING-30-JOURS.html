@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planning DPO — 30 jours, une seule tâche par jour</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F2A47'/%3E%3Cpath d='M50 18l26 10v22c0 18-11 28-26 34-15-6-26-16-26-34V28z' fill='%233fb88f'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#0b1220; --bg2:#0f1828; --card:#131d2e; --card2:#18243a;
+    --text:#e9eff8; --muted:#9db0c6; --line:#24344a;
+    --accent:#3fb88f; --accent-soft:rgba(63,184,143,.14);
+    --d1:#60a5fa; --d2:#fbbf24; --d3:#a78bfa;
+    --ok:#34d399; --radius:16px;
+  }
+  html[data-theme="light"]{
+    --bg:#f5f8fc; --bg2:#ffffff; --card:#ffffff; --card2:#f0f5fb;
+    --text:#0f2a47; --muted:#5b6b80; --line:#dbe4ef;
+    --accent:#237a5c; --accent-soft:rgba(35,122,92,.10);
+    --d1:#1d4ed8; --d2:#a16207; --d3:#6d28d9; --ok:#047857;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:80px}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:980px; margin:0 auto; padding:0 20px}
+  .top{position:relative; border-bottom:1px solid var(--line); background:radial-gradient(800px 300px at 10% -20%, rgba(63,184,143,.20), transparent 60%), var(--bg2)}
+  .top .wrap{padding:42px 20px 32px}
+  .kicker{font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:800}
+  h1{font-size:clamp(26px,4vw,40px); line-height:1.12; letter-spacing:-.025em; margin:10px 0 8px}
+  .lede{color:var(--muted); font-size:clamp(15px,1.7vw,18px); margin:0; max-width:760px}
+  .meta{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px}
+  .pill{font-size:12.5px; border:1px solid var(--line); background:var(--card); color:var(--muted); padding:5px 10px; border-radius:999px}
+  .pill strong{color:var(--text)}
+  .theme{position:absolute; top:16px; right:16px; border:1px solid var(--line); background:var(--card); color:var(--text); border-radius:999px; padding:7px 12px; font:inherit; font-size:12.5px; cursor:pointer}
+  .theme:hover{border-color:var(--accent)}
+  .examdate{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:16px 0 0}
+  .examdate label{font-size:13px; color:var(--muted)}
+  .examdate input{font:inherit; font-size:13.5px; color:var(--text); background:var(--card); border:1px solid var(--line); border-radius:9px; padding:7px 10px}
+  .examdate input:focus{outline:2px solid var(--accent-soft); border-color:var(--accent)}
+  .examdate span{font-size:12.5px; color:var(--muted)}
+  .warnbox{background:color-mix(in srgb, var(--d2) 10%, transparent); border:1px solid color-mix(in srgb, var(--d2) 35%, transparent); border-left:3px solid var(--d2); border-radius:0 12px 12px 0; padding:13px 15px; font-size:13.5px; color:var(--muted); margin:16px 0 0; max-width:840px}
+  .warnbox strong{color:var(--text)}
+  .warnbox a{color:var(--accent)}
+  main{padding:26px 0 60px}
+  .now{background:var(--card); border:1px solid var(--accent); border-radius:var(--radius); padding:20px; margin:0 0 22px; box-shadow:0 10px 30px rgba(0,0,0,.12)}
+  html[data-theme="light"] .now{box-shadow:0 10px 30px rgba(15,42,71,.07)}
+  .now .label{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:800}
+  .now h2{font-size:clamp(19px,2.4vw,25px); margin:6px 0 5px; letter-spacing:-.02em}
+  .now p{margin:0; color:var(--muted); font-size:14.5px}
+  .now .row{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px}
+  .now .date{font-size:13px; color:var(--muted)}
+  .now .go{font-size:13.5px; font-weight:700; border:1px solid var(--accent); color:var(--accent); border-radius:9px; padding:7px 11px}
+  .now .go:hover{background:var(--accent-soft); text-decoration:none}
+  .now .done-btn{background:var(--accent); border-color:var(--accent); color:#062019; cursor:pointer}
+  .now .done-btn:hover{filter:brightness(1.06); background:var(--accent)}
+  .now .done-btn:disabled{opacity:.7; cursor:default}
+  .progress-box{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:15px 17px; margin:0 0 24px}
+  .progress-box .row{display:flex; justify-content:space-between; gap:12px; font-size:13.5px; color:var(--muted)}
+  .progress-box b{color:var(--text); font-variant-numeric:tabular-nums}
+  .dash{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin:0 0 24px}
+  .dash > div{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px 15px}
+  .dash b{display:block; font-size:24px; line-height:1.1; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+  .dash span{display:block; color:var(--muted); font-size:12.5px; margin-top:3px}
+  .dash .alert b{color:var(--d2)}
+  .dash .good b{color:var(--accent)}
+  .bar{height:8px; background:var(--card2); border-radius:999px; overflow:hidden; margin-top:10px}
+  .bar i{display:block; height:100%; width:0; background:var(--accent); transition:width .25s ease}
+  .rules{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; margin:0 0 28px}
+  .rule{background:var(--card); border:1px solid var(--line); border-radius:13px; padding:14px 15px}
+  .rule b{display:block; font-size:13.5px; margin-bottom:3px}
+  .rule span{color:var(--muted); font-size:13px}
+  .week{margin:0 0 26px}
+  .week-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin:0 0 10px}
+  .week-head h2{font-size:19px; margin:0; letter-spacing:-.015em}
+  .week-head span{font-size:12px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
+  .days{display:grid; gap:8px}
+  .day{display:flex; gap:12px; align-items:flex-start; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px 15px}
+  .day:hover{border-color:color-mix(in srgb, var(--accent) 40%, transparent)}
+  .day input{margin:4px 0 0; width:17px; height:17px; accent-color:var(--accent); flex:0 0 auto; cursor:pointer}
+  .day .date{flex:0 0 92px; font-size:12.5px; color:var(--muted); line-height:1.35; padding-top:1px}
+  .day .date b{display:block; color:var(--text); font-size:13.5px}
+  .day .body{flex:1; min-width:0}
+  .day .body b{display:block; font-size:14.5px; letter-spacing:-.005em}
+  .day .body p{margin:2px 0 0; font-size:13.4px; color:var(--muted)}
+  .day .duration{flex:0 0 auto; font-size:11.5px; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:2px 8px; white-space:nowrap; margin-top:1px}
+  .day.done{opacity:.62}
+  .day.done .body b{text-decoration:line-through; text-decoration-thickness:1px}
+  .day.rest{background:transparent; border-style:dashed}
+  .day.rest .body b{color:var(--muted); font-weight:600}
+  .day.exam{border-color:var(--accent); background:var(--accent-soft)}
+  .day.exam .body b{color:var(--accent)}
+  .week-note{font-size:12.5px; color:var(--muted); margin:8px 0 0}
+  .toolbar{display:flex; gap:8px; flex-wrap:wrap; margin:6px 0 0}
+  .btn{font:inherit; font-size:13px; border:1px solid var(--line); background:var(--card); color:var(--text); border-radius:9px; padding:7px 11px; cursor:pointer}
+  .btn:hover{border-color:var(--accent)}
+  .notebook{margin:34px 0 0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px}
+  .notebook-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap}
+  .notebook h2{font-size:19px; margin:0 0 6px}
+  .notebook p{margin:0 0 12px; color:var(--muted); font-size:13.8px}
+  .errform{display:grid; grid-template-columns:110px 1fr 1.3fr auto; gap:8px; margin:12px 0 8px}
+  .errform input{font:inherit; font-size:13.5px; color:var(--text); background:var(--bg2); border:1px solid var(--line); border-radius:9px; padding:9px 11px; min-width:0}
+  .errform input:focus{outline:2px solid var(--accent-soft); border-color:var(--accent)}
+  .errform button{font:inherit; font-size:13px; font-weight:700; border:1px solid var(--accent); background:var(--accent); color:#062019; border-radius:9px; padding:9px 13px; cursor:pointer}
+  .errform button:hover{filter:brightness(1.06)}
+  .errhint{font-size:12.5px; color:var(--muted); margin:0 0 8px}
+  .errlist{display:grid; gap:8px; margin-top:14px}
+  .err{display:flex; gap:12px; align-items:flex-start; border:1px solid var(--line); border-radius:11px; padding:11px 13px; background:var(--bg2)}
+  .err.resolved{opacity:.65}
+  .err .q{flex:0 0 56px; font-size:12px; font-weight:800; color:var(--accent); padding-top:1px}
+  .err .txt{flex:1; min-width:0; font-size:13.2px; color:var(--muted)}
+  .err .txt b{display:block; color:var(--text); font-size:13.8px; margin-bottom:2px}
+  .err .txt span{display:block}
+  .err .actions{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end}
+  .err .actions button{font:inherit; font-size:11.5px; border:1px solid var(--line); background:var(--card); color:var(--text); border-radius:7px; padding:4px 8px; cursor:pointer}
+  .err .actions button:hover{border-color:var(--accent)}
+  .err .actions .okbtn{color:var(--accent); border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+  .empty{font-size:13.4px; color:var(--muted); border:1px dashed var(--line); border-radius:11px; padding:14px; text-align:center; margin-top:12px}
+  footer{border-top:1px solid var(--line); padding:22px 0 36px; color:var(--muted); font-size:12.5px}
+  @media (max-width:620px){
+    .top .wrap{padding:34px 16px 26px}
+    .theme{top:10px; right:10px; padding:6px 9px}
+    .day{flex-wrap:wrap; gap:8px}
+    .day .date{flex:0 0 100%; display:flex; gap:7px; align-items:baseline}
+    .day .date b{display:inline}
+    .day .body{flex:1 1 100%; order:3}
+    .day .duration{order:2; margin-left:auto}
+    .day input{order:1}
+    .errform{grid-template-columns:1fr}
+    .err{flex-wrap:wrap}
+    .err .q{flex:0 0 100%}
+    .err .txt{flex:1 1 100%}
+    .err .actions{flex:1 1 100%; width:100%; justify-content:flex-start; margin-left:0}
+  }
+  @media print{
+    html[data-theme]{--bg:#fff;--bg2:#fff;--card:#fff;--card2:#f4f6f9;--text:#000;--muted:#222;--line:#bbb;--accent:#14532d}
+    body{background:#fff;color:#000}
+    .theme,.toolbar,.now .go{display:none !important}
+    .examdate{display:none !important}
+    .errform,.err .actions{display:none !important}
+    .day,.rule,.now,.notebook{break-inside:avoid}
+    a{color:#000;text-decoration:underline}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="theme" id="themeBtn" type="button">Thème clair</button>
+  <div class="wrap">
+    <div class="kicker">Certification DPO · plan de travail</div>
+    <h1>30 jours, une seule tâche par jour</h1>
+    <p class="lede">Pas de programme à lire en entier : chaque jour, tu fais une chose, tu coches, tu fermes. 30 minutes suffisent. Choisis ta date d'examen : les dates du planning se recalent automatiquement.</p>
+    <div class="examdate">
+      <label for="examDate">Date de l'examen</label>
+      <input type="date" id="examDate" value="2026-12-14">
+      <span id="examDateHint"></span>
+    </div>
+    <div class="warnbox">
+      <strong>Le kit et ce planning ne remplacent pas la formation de 35 h.</strong> Si tu n'as pas 2 ans d'expérience en protection des données, la CNIL exige une formation de 35 h reçue d'un organisme. La révision commence à J-30 ; la formation se fait en amont ou en parallèle, à 8 h par semaine. <a href="2026-11-02-COMPARATIF-CERTIFICATEURS.html">Comparatif des certificateurs</a>.
+    </div>
+    <p class="errhint" style="margin:8px 0 0; max-width:840px">Calendrier : <strong>LégiSchool</strong> = examen possible mi-décembre 2026 ; <strong>Orsys OF2</strong> = session 1-5 février 2027, donc examen après le 5 février. La date se règle en haut de la page.</p>
+    <div class="meta">
+      <span class="pill"><strong>26</strong> sessions</span>
+      <span class="pill"><strong>4</strong> jours off</span>
+      <span class="pill"><strong>30 min</strong> en moyenne</span>
+      <span class="pill">QCM : <strong>65 questions</strong></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="now" aria-live="polite">
+    <div class="label" id="nowLabel">Ta prochaine étape</div>
+    <h2 id="nowTitle">Chargement…</h2>
+    <p id="nowDesc"></p>
+    <div class="row">
+      <span class="date" id="nowDate"></span>
+      <a class="go" id="nowLink" href="KIT-PREPA-DPO.html#qcm">Ouvrir le kit</a>
+      <button class="go done-btn" id="nowDone" type="button">J'ai fait cette tâche</button>
+      <span class="date" id="nowFeedback" role="status"></span>
+    </div>
+  </section>
+
+  <div class="progress-box">
+    <div class="row"><span>Progression</span><b id="progressText">0 / 26</b></div>
+    <div class="bar"><i id="progressBar"></i></div>
+  </div>
+
+  <div class="dash">
+    <div><b id="statSessions">0</b><span>séances faites / 26</span></div>
+    <div><b id="statErrors">0</b><span>erreurs notées</span></div>
+    <div class="alert"><b id="statOpen">0</b><span>à revoir</span></div>
+    <div class="good"><b id="statResolved">0</b><span>comprises</span></div>
+  </div>
+  <p class="errhint" style="margin:-14px 0 24px">Deux choses séparées : les séances cochées disent où tu en es ; les erreurs disent ce qu'il reste à comprendre. Une erreur marquée « Compris » ne disparaît pas, elle passe dans « comprises ».</p>
+
+  <div class="rules">
+    <div class="rule"><b>30 minutes, pas plus</b><span>Mieux vaut 30 min chaque jour que 3 h le dimanche.</span></div>
+    <div class="rule"><b>Un jour raté = un jour sauté</b><span>Tu ne rattrapes pas. Tu reprends à la date du jour.</span></div>
+    <div class="rule"><b>Répondre avant de lire</b><span>Tu réponds au QCM, puis tu regardes la correction. C'est ça qui fait retenir.</span></div>
+    <div class="rule"><b>Une erreur = une ligne</b><span>Note la règle exacte dans le carnet, juste en dessous.</span></div>
+  </div>
+
+  <section class="notebook" id="carnet">
+    <div class="notebook-head">
+      <div>
+        <h2>Mon carnet d'erreurs</h2>
+        <p>Chaque erreur du QCM va ici. Tu écris la règle exacte, puis tu la marques « Compris » quand tu la maîtrises. Le compteur en haut suit ce qui reste à revoir.</p>
+      </div>
+      <button class="btn" id="clearErrors" type="button">Tout effacer</button>
+    </div>
+    <form class="errform" id="errForm">
+      <input id="errQ" type="text" inputmode="numeric" placeholder="N° question (ex. 12)" aria-label="Numéro de la question">
+      <input id="errAnswer" type="text" placeholder="Ce que j'ai répondu" aria-label="Ce que j'ai répondu">
+      <input id="errRule" type="text" placeholder="La règle exacte (obligatoire)" aria-label="La règle exacte" required>
+      <button type="submit">Ajouter</button>
+    </form>
+    <p class="errhint">Le numéro est affiché en haut à droite de chaque question du QCM, de Q1 à Q60.</p>
+    <div class="errlist" id="errList"></div>
+  </section>
+
+  <section class="week">
+    <div class="week-head"><span>Avant</span><h2>La formation de 35 h</h2></div>
+    <div class="days">
+      <div class="day prep" style="border-color:var(--d2)">
+        <div class="date"><b>Avant le plan</b>Formation</div>
+        <div class="body"><b>Choisir et lancer la formation</b><p>35 h reçues d'un organisme, à 8 h par semaine. Le <a href="2026-11-02-COMPARATIF-CERTIFICATEURS.html">comparatif</a> contient les prix (LégiSchool 1 599 € TTC ; Orsys OF2 3 860/4 040 € HT) et les questions à poser. Le planning de révision commence à J-30, une fois la date d'examen fixée.</p></div>
+        <span class="duration">35 h</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="week">
+    <div class="week-head"><span>Départ</span><h2>On pose le cadre</h2></div>
+    <div class="days">
+      <label class="day" data-task="1" data-key="2026-10-31" data-title="Point de départ" data-meta="Samedi 31 octobre · 15 min" data-desc="Ouvre le kit, réponds aux 5 premières questions du QCM, puis vérifie. Note ton score sans te juger." data-href="KIT-PREPA-DPO.html#qcm">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Sam. 31 oct.</b>J-30</div>
+        <div class="body"><b>Point de départ</b><p>Ouvre le kit, réponds aux 5 premières questions du QCM, puis vérifie. Note ton score sans te juger.</p></div>
+        <span class="duration">15 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-01" data-title="Comprendre l'épreuve" data-meta="Dimanche 1er novembre · 15 min" data-desc="Lis seulement la section « L'examen en clair » et les 10 questions à poser au certificateur. Rien d'autre." data-href="KIT-PREPA-DPO.html#examen">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Dim. 1er nov.</b>J-29</div>
+        <div class="body"><b>Comprendre l'épreuve</b><p>Lis seulement la section « L'examen en clair » et les 10 questions à poser au certificateur. Rien d'autre.</p></div>
+        <span class="duration">15 min</span>
+      </label>
+    </div>
+    <p class="week-note">Objectif de la semaine : savoir à quoi tu t'inscris, et faire connaissance avec le QCM.</p>
+  </section>
+
+  <section class="week">
+    <div class="week-head"><span>Semaine 1</span><h2>Les fondations du RGPD</h2></div>
+    <div class="days">
+      <label class="day" data-task="1" data-key="2026-11-02" data-title="Champ d'application et définitions" data-meta="Lundi 2 novembre · 30 min" data-desc="Fiche D1, sections 1 et 2. Puis Q1 à Q4." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Lun. 2 nov.</b>J-28</div>
+        <div class="body"><b>Champ d'application et définitions</b><p>Fiche D1, sections 1 et 2. Puis Q1 à Q4.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-03" data-title="Les principes" data-meta="Mardi 3 novembre · 30 min" data-desc="Fiche D1, section 3. Puis Q5, et relis l'explication." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Mar. 3 nov.</b>J-27</div>
+        <div class="body"><b>Les principes</b><p>Fiche D1, section 3. Puis Q5, et relis l'explication.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-04" data-title="Les bases légales" data-meta="Mercredi 4 novembre · 30 min" data-desc="Fiche D1, section 4. Puis Q6 à Q10." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Mer. 4 nov.</b>J-26</div>
+        <div class="body"><b>Les bases légales</b><p>Fiche D1, section 4. Puis Q6 à Q10.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-05" data-title="Les droits des personnes" data-meta="Jeudi 5 novembre · 30 min" data-desc="Fiche D1, section 5. Puis Q11 à Q15." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Jeu. 5 nov.</b>J-25</div>
+        <div class="body"><b>Les droits des personnes</b><p>Fiche D1, section 5. Puis Q11 à Q15.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-06" data-title="Consolidation D1 (1/2)" data-meta="Vendredi 6 novembre · 30 min" data-desc="Refais Q1 à Q15 sans regarder la fiche. Note les erreurs dans le carnet." data-href="KIT-PREPA-DPO.html#qcm">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Ven. 6 nov.</b>J-24</div>
+        <div class="body"><b>Consolidation D1 (1/2)</b><p>Refais Q1 à Q15 sans regarder la fiche. Note les erreurs dans le carnet.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-07" data-title="Contrats et sous-traitance" data-meta="Samedi 7 novembre · 30 min" data-desc="Fiche D1, section 6. Puis Q16 à Q18." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Sam. 7 nov.</b>J-23</div>
+        <div class="body"><b>Contrats et sous-traitance</b><p>Fiche D1, section 6. Puis Q16 à Q18.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <div class="day rest">
+        <div class="date"><b>Dim. 8 nov.</b>J-22</div>
+        <div class="body"><b>Repos</b><p>Rien. Tu laisses reposer.</p></div>
+        <span class="duration">off</span>
+      </div>
+    </div>
+    <p class="week-note">Le seul objectif : comprendre les notions, pas encore les mémoriser parfaitement.</p>
+  </section>
+
+  <section class="week">
+    <div class="week-head"><span>Semaine 2</span><h2>DPO, transferts, AIPD et registres</h2></div>
+    <div class="days">
+      <label class="day" data-task="1" data-key="2026-11-09" data-title="Le DPO" data-meta="Lundi 9 novembre · 30 min" data-desc="Fiche D1, section 7. Puis Q19 à Q22." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Lun. 9 nov.</b>J-21</div>
+        <div class="body"><b>Le DPO</b><p>Fiche D1, section 7. Puis Q19 à Q22.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-10" data-title="Les transferts hors UE" data-meta="Mardi 10 novembre · 30 min" data-desc="Fiche D1, section 8. Puis Q23 à Q25." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Mar. 10 nov.</b>J-20</div>
+        <div class="body"><b>Les transferts hors UE</b><p>Fiche D1, section 8. Puis Q23 à Q25.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-11" data-title="Autorités et sanctions" data-meta="Mercredi 11 novembre · 30 min" data-desc="Fiche D1, section 9. Puis Q26 à Q28." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Mer. 11 nov.</b>J-19</div>
+        <div class="body"><b>Autorités et sanctions</b><p>Fiche D1, section 9. Puis Q26 à Q28.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-12" data-title="Cookies et prospection" data-meta="Jeudi 12 novembre · 30 min" data-desc="Fiche D1, section 10. Puis Q29 et Q30." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Jeu. 12 nov.</b>J-18</div>
+        <div class="body"><b>Cookies et prospection</b><p>Fiche D1, section 10. Puis Q29 et Q30.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-13" data-title="Test D1 complet" data-meta="Vendredi 13 novembre · 40 min" data-desc="Fais Q1 à Q30 d'affilée, sans fiche, en te chronométrant. Objectif : 75 %." data-href="KIT-PREPA-DPO.html#qcm">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Ven. 13 nov.</b>J-17</div>
+        <div class="body"><b>Test D1 complet</b><p>Fais Q1 à Q30 d'affilée, sans fiche, en te chronométrant. Objectif : 75 %.</p></div>
+        <span class="duration">40 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-14" data-title="L'AIPD" data-meta="Samedi 14 novembre · 30 min" data-desc="Fiche D2, sections 1 et 2. Puis Q31 à Q36." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Sam. 14 nov.</b>J-16</div>
+        <div class="body"><b>L'AIPD</b><p>Fiche D2, sections 1 et 2. Puis Q31 à Q36.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <div class="day rest">
+        <div class="date"><b>Dim. 15 nov.</b>J-15</div>
+        <div class="body"><b>Repos</b><p>Rien. Tu laisses reposer.</p></div>
+        <span class="duration">off</span>
+      </div>
+    </div>
+    <p class="week-note">Si le test D1 est sous 75 %, ce n'est pas grave : note les erreurs et continue. Tu les reverras.</p>
+  </section>
+
+  <section class="week">
+    <div class="week-head"><span>Semaine 3</span><h2>Responsabilité et sécurité</h2></div>
+    <div class="days">
+      <label class="day" data-task="1" data-key="2026-11-16" data-title="Les registres" data-meta="Lundi 16 novembre · 30 min" data-desc="Fiche D2, sections 3 et 4. Puis Q37 à Q41." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Lun. 16 nov.</b>J-14</div>
+        <div class="body"><b>Les registres</b><p>Fiche D2, sections 3 et 4. Puis Q37 à Q41.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-17" data-title="Les violations de données" data-meta="Mardi 17 novembre · 30 min" data-desc="Fiche D2, section 5. Puis Q42 à Q48." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Mar. 17 nov.</b>J-13</div>
+        <div class="body"><b>Les violations de données</b><p>Fiche D2, section 5. Puis Q42 à Q48.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-18" data-title="Consolidation D2" data-meta="Mercredi 18 novembre · 30 min" data-desc="Refais Q31 à Q48 sans fiche. Note les erreurs." data-href="KIT-PREPA-DPO.html#qcm">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Mer. 18 nov.</b>J-12</div>
+        <div class="body"><b>Consolidation D2</b><p>Refais Q31 à Q48 sans fiche. Note les erreurs.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-19" data-title="Sécurité : cadre et chiffrement" data-meta="Jeudi 19 novembre · 30 min" data-desc="Fiche D3, sections 1 et 2. Puis Q49 à Q53." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Jeu. 19 nov.</b>J-11</div>
+        <div class="body"><b>Sécurité : cadre et chiffrement</b><p>Fiche D3, sections 1 et 2. Puis Q49 à Q53.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-20" data-title="Accès et sauvegardes" data-meta="Vendredi 20 novembre · 30 min" data-desc="Fiche D3, sections 3 et 4. Puis Q54 à Q57." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Ven. 20 nov.</b>J-10</div>
+        <div class="body"><b>Accès et sauvegardes</b><p>Fiche D3, sections 3 et 4. Puis Q54 à Q57.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-21" data-title="Incident et cloud" data-meta="Samedi 21 novembre · 30 min" data-desc="Fiche D3, sections 5 et 6. Puis Q58 à Q60." data-href="KIT-PREPA-DPO.html#fiches">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Sam. 21 nov.</b>J-9</div>
+        <div class="body"><b>Incident et cloud</b><p>Fiche D3, sections 5 et 6. Puis Q58 à Q60.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <div class="day rest">
+        <div class="date"><b>Dim. 22 nov.</b>J-8</div>
+        <div class="body"><b>Repos</b><p>Rien. Tu laisses reposer.</p></div>
+        <span class="duration">off</span>
+      </div>
+    </div>
+    <p class="week-note">À partir d'ici, tu as vu les trois domaines. La dernière semaine sert à t'entraîner, pas à découvrir.</p>
+  </section>
+
+  <section class="week">
+    <div class="week-head"><span>Semaine 4</span><h2>Simulations et jour J</h2></div>
+    <div class="days">
+      <label class="day" data-task="1" data-key="2026-11-23" data-title="Simulation 1" data-meta="Lundi 23 novembre · 60 min" data-desc="Les 65 questions d'affilée, sans fiche. Note le score global et le score par domaine." data-href="KIT-PREPA-DPO.html#qcm">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Lun. 23 nov.</b>J-7</div>
+        <div class="body"><b>Simulation 1</b><p>Les 65 questions d'affilée, sans fiche. Note le score global et le score par domaine.</p></div>
+        <span class="duration">60 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-24" data-title="Correction des erreurs" data-meta="Mardi 24 novembre · 40 min" data-desc="Reprends chaque erreur, lis la fiche concernée, réécris la règle en une phrase." data-href="KIT-PREPA-DPO.html#pieges">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Mar. 24 nov.</b>J-6</div>
+        <div class="body"><b>Correction des erreurs</b><p>Reprends chaque erreur, lis la fiche concernée, réécris la règle en une phrase.</p></div>
+        <span class="duration">40 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-25" data-title="Simulation 2" data-meta="Mercredi 25 novembre · 60 min" data-desc="Les 65 questions à nouveau. Objectif : 75 % au total et 50 % dans chaque domaine." data-href="KIT-PREPA-DPO.html#qcm">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Mer. 25 nov.</b>J-5</div>
+        <div class="body"><b>Simulation 2</b><p>Les 65 questions à nouveau. Objectif : 75 % au total et 50 % dans chaque domaine.</p></div>
+        <span class="duration">60 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-26" data-title="Chiffres et pièges" data-meta="Jeudi 26 novembre · 30 min" data-desc="Lis uniquement « Chiffres » et « Pièges ». Rien d'autre." data-href="KIT-PREPA-DPO.html#chiffres">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Jeu. 26 nov.</b>J-4</div>
+        <div class="body"><b>Chiffres et pièges</b><p>Lis uniquement « Chiffres » et « Pièges ». Rien d'autre.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <label class="day" data-task="1" data-key="2026-11-27" data-title="Dernière simulation ou révision ciblée" data-meta="Vendredi 27 novembre · 30 min" data-desc="Si ton score est sous 75 %, refais le domaine le plus faible. Sinon, relis tes erreurs." data-href="KIT-PREPA-DPO.html#qcm">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Ven. 27 nov.</b>J-3</div>
+        <div class="body"><b>Dernière simulation ou révision ciblée</b><p>Si ton score est sous 75 %, refais le domaine le plus faible. Sinon, relis tes erreurs.</p></div>
+        <span class="duration">30 min</span>
+      </label>
+      <div class="day rest">
+        <div class="date"><b>Sam. 28 nov.</b>J-2</div>
+        <div class="body"><b>Repos</b><p>Rien. Tu ne révises pas la veille.</p></div>
+        <span class="duration">off</span>
+      </div>
+      <label class="day" data-task="1" data-key="2026-11-29" data-title="Logistique" data-meta="Dimanche 29 novembre · 20 min" data-desc="Relis les chiffres. Prépare pièce d'identité, convocation, matériel, connexion. Dors." data-href="KIT-PREPA-DPO.html#chiffres">
+        <input class="daycheck" type="checkbox">
+        <div class="date"><b>Dim. 29 nov.</b>J-1</div>
+        <div class="body"><b>Logistique</b><p>Relis les chiffres. Prépare pièce d'identité, convocation, matériel, connexion. Dors.</p></div>
+        <span class="duration">20 min</span>
+      </label>
+      <div class="day exam">
+        <div class="date"><b>Lun. 30 nov.</b>Jour J</div>
+        <div class="body"><b>Examen</b><p>Lis bien « une ou plusieurs réponses exactes ». Gère ton temps, ne reste pas bloqué.</p></div>
+        <span class="duration">Examen</span>
+      </div>
+    </div>
+    <p class="week-note">Le but des simulations n'est pas de te rassurer : c'est de repérer les erreurs avant l'examen.</p>
+  </section>
+
+  <div class="toolbar">
+    <button class="btn" id="resetBtn" type="button">Tout décocher</button>
+    <button class="btn" id="printBtn" type="button">Imprimer</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Planning indicatif : choisis ta date d'examen en haut, les dates se recalent. La formation de 35 h reste à faire séparément si tu n'as pas 2 ans d'expérience en protection des données. Le contenu et les réponses restent dans <a href="KIT-PREPA-DPO.html">le kit de préparation</a>.
+  </div>
+</footer>
+
+<script>
+const STORE_KEY = "dpo-plan-30j-v1";
+let done = [];
+try { done = JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); } catch(e) { done = []; }
+if (!Array.isArray(done)) done = [];
+
+const boxes = [...document.querySelectorAll(".daycheck")];
+const totalTasks = document.querySelectorAll('.day[data-task="1"]').length;
+
+const EXAM_KEY = "dpo-plan-exam-date";
+const examInput = document.getElementById("examDate");
+try {
+  const savedExam = localStorage.getItem(EXAM_KEY);
+  if (savedExam) examInput.value = savedExam;
+} catch(e) {}
+
+function isoOf(d){
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
+
+function fmtDate(d){
+  const s = d.toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "short" });
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function parseOffset(card){
+  const m = card.querySelector(".date").textContent.match(/J-(\d+)/);
+  return m ? Number(m[1]) : 0;
+}
+
+function renderDates(){
+  if (!examInput.value) examInput.value = "2026-12-14";
+  const base = new Date(examInput.value + "T12:00:00");
+  if (isNaN(base.getTime())) return;
+
+  document.querySelectorAll(".day").forEach(card => {
+    const hasJ = /J-\d+/.test(card.querySelector(".date").textContent);
+    if (!hasJ && !card.classList.contains("exam")) return;
+    const offset = parseOffset(card);
+    const dd = new Date(base);
+    dd.setDate(dd.getDate() - offset);
+    card.dataset.computed = isoOf(dd);
+
+    const dateEl = card.querySelector(".date");
+    const b = dateEl.querySelector("b");
+    const label = offset === 0 ? "Jour J" : "J-" + offset;
+    b.textContent = fmtDate(dd);
+    [...dateEl.childNodes].forEach(node => {
+      if (node.nodeType === 3) node.textContent = label;
+    });
+
+    const dur = card.querySelector(".duration");
+    card.dataset.meta = fmtDate(dd) + (dur ? " · " + dur.textContent.trim() : "");
+  });
+
+  const firstTask = document.querySelector('.day[data-task="1"]');
+  document.getElementById("examDateHint").textContent = firstTask
+    ? "Plan du " + firstTask.dataset.meta.split(" · ")[0] + " au " + fmtDate(base)
+    : "";
+}
+
+examInput.addEventListener("change", () => {
+  try { localStorage.setItem(EXAM_KEY, examInput.value); } catch(e) {}
+  renderDates();
+  updateNext();
+});
+
+function save(){
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(done)); } catch(e) {}
+}
+
+const ERR_KEY = "dpo-plan-errors-v1";
+let errors = [];
+try { errors = JSON.parse(localStorage.getItem(ERR_KEY) || "[]"); } catch(e) { errors = []; }
+if (!Array.isArray(errors)) errors = [];
+
+function saveErrors(){
+  try { localStorage.setItem(ERR_KEY, JSON.stringify(errors)); } catch(e) {}
+}
+
+function errorDate(err){
+  const d = err.date ? new Date(err.date) : new Date();
+  return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" });
+}
+
+function updateDash(){
+  const sessions = boxes.filter(b => b.checked).length;
+  const open = errors.filter(e => !e.resolved).length;
+  const resolved = errors.filter(e => e.resolved).length;
+  document.getElementById("statSessions").textContent = sessions;
+  document.getElementById("statErrors").textContent = errors.length;
+  document.getElementById("statOpen").textContent = open;
+  document.getElementById("statResolved").textContent = resolved;
+}
+
+function renderErrors(){
+  const list = document.getElementById("errList");
+  list.textContent = "";
+  if (!errors.length){
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "Aucune erreur notée pour l'instant. C'est normal : note seulement celles qui te surprennent.";
+    list.appendChild(empty);
+    updateDash();
+    return;
+  }
+
+  errors.slice().sort((a, b) => b.id - a.id).forEach(err => {
+    const card = document.createElement("div");
+    card.className = "err" + (err.resolved ? " resolved" : "");
+
+    const q = document.createElement("div");
+    q.className = "q";
+    q.textContent = err.q ? "Q" + err.q : "Note";
+
+    const txt = document.createElement("div");
+    txt.className = "txt";
+    const rule = document.createElement("b");
+    rule.textContent = err.rule;
+    const answer = document.createElement("span");
+    answer.textContent = "Ma réponse : " + (err.answer || "—");
+    const date = document.createElement("span");
+    date.textContent = "Ajoutée le " + errorDate(err);
+    txt.append(rule, answer, date);
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+    const ok = document.createElement("button");
+    ok.type = "button";
+    ok.className = "okbtn";
+    ok.textContent = err.resolved ? "À revoir" : "Compris";
+    ok.addEventListener("click", () => {
+      err.resolved = !err.resolved;
+      saveErrors();
+      renderErrors();
+    });
+    const del = document.createElement("button");
+    del.type = "button";
+    del.textContent = "Supprimer";
+    del.addEventListener("click", () => {
+      errors = errors.filter(x => x.id !== err.id);
+      saveErrors();
+      renderErrors();
+    });
+    actions.append(ok, del);
+
+    card.append(q, txt, actions);
+    list.appendChild(card);
+  });
+  updateDash();
+}
+
+document.getElementById("errForm").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const rule = document.getElementById("errRule").value.trim();
+  if (!rule) return;
+  const q = document.getElementById("errQ").value.trim().replace(/^q\s*/i, "");
+  const answer = document.getElementById("errAnswer").value.trim();
+  errors.push({ id: Date.now(), q, answer, rule, resolved: false, date: new Date().toISOString() });
+  saveErrors();
+  renderErrors();
+  document.getElementById("errForm").reset();
+  document.getElementById("errQ").focus();
+});
+
+document.getElementById("clearErrors").addEventListener("click", () => {
+  if (!errors.length) return;
+  if (!confirm("Effacer toutes les erreurs notées ?")) return;
+  errors = [];
+  saveErrors();
+  renderErrors();
+});
+
+function updateProgress(){
+  const checked = boxes.filter(b => b.checked).length;
+  document.getElementById("progressText").textContent = checked + " / " + totalTasks;
+  document.getElementById("progressBar").style.width = (totalTasks ? checked / totalTasks * 100 : 0) + "%";
+  updateDash();
+}
+
+let currentKey = null;
+
+function updateNext(){
+  const taskDays = [...document.querySelectorAll('.day[data-task="1"]')];
+  let target = taskDays.find(d => !d.querySelector(".daycheck").checked);
+  let isToday = false;
+  const todayIso = isoOf(new Date());
+  const firstTask = taskDays[0];
+  if (firstTask && todayIso < firstTask.dataset.computed && boxes.every(b => !b.checked)) {
+    currentKey = null;
+    document.getElementById("nowLabel").textContent = "Avant le plan";
+    document.getElementById("nowTitle").textContent = "Lancer la formation de 35 h";
+    document.getElementById("nowDesc").textContent = "Le planning de révision commence le " + firstTask.dataset.meta.split(" · ")[0] + ". D'ici là : choisir et lancer la formation, à 8 h par semaine.";
+    document.getElementById("nowDate").textContent = "Aujourd'hui";
+    document.getElementById("nowLink").href = "2026-11-02-COMPARATIF-CERTIFICATEURS.html";
+    document.getElementById("nowLink").textContent = "Ouvrir le comparatif";
+    document.getElementById("nowDone").hidden = true;
+    return;
+  }
+  const todayDay = taskDays.find(d => d.dataset.computed === todayIso && !d.querySelector(".daycheck").checked);
+  if (todayDay) { target = todayDay; isToday = true; }
+  currentKey = target ? target.dataset.key : null;
+
+  document.getElementById("nowLabel").textContent = isToday ? "Aujourd'hui" : (target ? "Ta prochaine étape" : "Terminé");
+  if (!target) {
+    document.getElementById("nowTitle").textContent = "Tout est coché";
+    document.getElementById("nowDesc").textContent = "Tu as fait les 26 sessions. Dernière étape : le jour de l'examen.";
+    document.getElementById("nowDate").textContent = "";
+    document.getElementById("nowLink").href = "KIT-PREPA-DPO.html#chiffres";
+    document.getElementById("nowLink").textContent = "Relire les chiffres";
+    document.getElementById("nowDone").hidden = true;
+    return;
+  }
+  document.getElementById("nowDone").hidden = false;
+  document.getElementById("nowTitle").textContent = target.dataset.title;
+  document.getElementById("nowDesc").textContent = target.dataset.desc;
+  document.getElementById("nowDate").textContent = target.dataset.meta;
+  const link = document.getElementById("nowLink");
+  link.href = target.dataset.href || "KIT-PREPA-DPO.html";
+  link.textContent = target.dataset.href ? "Ouvrir la section" : "Ouvrir le kit";
+}
+
+boxes.forEach(box => {
+  const key = box.closest(".day").dataset.key;
+  if (done.includes(key)) box.checked = true;
+  box.closest(".day").classList.toggle("done", box.checked);
+
+  box.addEventListener("change", () => {
+    const k = box.closest(".day").dataset.key;
+    if (box.checked) {
+      if (!done.includes(k)) done.push(k);
+    } else {
+      done = done.filter(x => x !== k);
+    }
+    box.closest(".day").classList.toggle("done", box.checked);
+    save();
+    updateProgress();
+    updateNext();
+  });
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (!confirm("Décocher toutes les cases ?")) return;
+  boxes.forEach(b => { b.checked = false; b.closest(".day").classList.remove("done"); });
+  done = [];
+  save();
+  updateProgress();
+  updateNext();
+});
+
+document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+document.getElementById("nowDone").addEventListener("click", () => {
+  if (!currentKey) return;
+  const box = document.querySelector('.day[data-key="' + currentKey + '"] .daycheck');
+  if (!box || box.checked) return;
+  const btn = document.getElementById("nowDone");
+  btn.disabled = true;
+  box.checked = true;
+  box.dispatchEvent(new Event("change", { bubbles: true }));
+  const fb = document.getElementById("nowFeedback");
+  fb.textContent = "C'est coché.";
+  setTimeout(() => { fb.textContent = ""; btn.disabled = false; }, 1200);
+});
+
+const themeBtn = document.getElementById("themeBtn");
+function applyTheme(theme){
+  document.documentElement.setAttribute("data-theme", theme);
+  themeBtn.textContent = theme === "dark" ? "Thème clair" : "Thème sombre";
+  try { localStorage.setItem("dpo-plan-theme", theme); } catch(e) {}
+}
+let savedTheme = "dark";
+try { savedTheme = localStorage.getItem("dpo-plan-theme") || "dark"; } catch(e) {}
+applyTheme(savedTheme);
+themeBtn.addEventListener("click", () => {
+  applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+});
+
+renderDates();
+renderErrors();
+updateProgress();
+updateNext();
+</script>
+</body>
+</html>
